@@ -1,0 +1,110 @@
+/* ============================================================
+   UCCL — animations.css
+   keyframes, scroll-reveal classes, transitions
+   ============================================================ */
+
+@keyframes kenBurns {
+  from { transform: scale(1) translate(0, 0); }
+  to   { transform: scale(1.08) translate(-2%, -1%); }
+}
+
+@keyframes wordIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-150%) skewX(-15deg); }
+  to   { transform: translateX(280%) skewX(-15deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(194,240,58,0.6); }
+  50%      { box-shadow: 0 0 0 12px rgba(194,240,58,0); }
+}
+
+@keyframes pulseWa {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+  50%      { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+}
+
+@keyframes marqueeLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes checkmarkDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ---------- Hamburger morph ---------- */
+.menu-open .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+.menu-open .bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-open .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+/* ---------- Scroll reveal ---------- */
+.reveal,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal       { transform: translateY(40px); }
+.reveal-left  { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
+
+.reveal.in,
+.reveal-left.in,
+.reveal-right.in {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Grid stagger */
+.stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.stagger.in > * { opacity: 1; transform: translateY(0); }
+.stagger.in > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger.in > *:nth-child(2) { transition-delay: 0.15s; }
+.stagger.in > *:nth-child(3) { transition-delay: 0.25s; }
+.stagger.in > *:nth-child(4) { transition-delay: 0.35s; }
+.stagger.in > *:nth-child(5) { transition-delay: 0.45s; }
+.stagger.in > *:nth-child(6) { transition-delay: 0.55s; }
+.stagger.in > *:nth-child(7) { transition-delay: 0.65s; }
+
+.float-badge.in { animation: floaty 4s ease-in-out 0.8s infinite; }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-slide.active .hero-slide__bg { animation: none; }
+  .reveal, .reveal-left, .reveal-right,
+  .stagger > * { opacity: 1 !important; transform: none !important; }
+  .hero-title .word { opacity: 1 !important; }
+}
